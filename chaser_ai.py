@@ -6,14 +6,14 @@ def pong_ai(paddle_frect, other_paddle_frect, ball_frect, table_size):
     Arguments:
     paddle_frect: a rectangle representing the coordinates of the paddle
                   paddle_frect.pos[0], paddle_frect.pos[1] is the top-left
-                  corner of the rectangle. 
+                  corner of the rectangle.
                   paddle_frect.size[0], paddle_frect.size[1] are the dimensions
                   of the paddle along the x and y axis, respectively
     
     other_paddle_frect:
                   a rectangle representing the opponent paddle. It is formatted
                   in the same way as paddle_frect
-    ball_frect:   a rectangle representing the ball. It is formatted in the 
+    ball_frect:   a rectangle representing the ball. It is formatted in the
                   same way as paddle_frect
     table_size:   table_size[0], table_size[1] are the dimensions of the table,
                   along the x and the y axis respectively
@@ -27,9 +27,13 @@ def pong_ai(paddle_frect, other_paddle_frect, ball_frect, table_size):
      |
  y   v
     '''          
+
+    print(f"Paddle coordinates: {paddle_frect.pos[0]}, {paddle_frect.pos[1]}")
+    print(
+        f"Other paddle coords: {other_paddle_frect.pos[0]}, {other_paddle_frect.pos[1]}")
+    print(f"Ball coordinates: {ball_frect.pos[0]}, {ball_frect.pos[1]}")
     
     if paddle_frect.pos[1]+paddle_frect.size[1]/2 < ball_frect.pos[1]+ball_frect.size[1]/2:
-     return "down"
+        return "down"
     else:
-     return "up"
-    
+        return "up"
