@@ -24,14 +24,19 @@ def build_model(layers, units, input_units, c=1e-4):
         m.add(BatchNormalization())
         m.add(ReLU())
 
-    m.add(Dense(3, activation='softmax', kernel_regularizer=l2(l=c)))
+    m.add(Dense(2, activation='softmax', kernel_regularizer=l2(l=c)))
+    m.summary()
 
     return m
+
+def train(model, x, r):
+    loss = model.train_on_batch(x, r)
+    return loss
 
 if __name__ == "__main__":
     model = build_model(2, 128, 64)
     checkpoint = ModelCheckpoint('checkpoint', save_best_only=True, monitor='loss')
     model.compile(optimizer=SGD(lr=0.01, momentum=0.9), loss=categorical_crossentropy, metrics=['accuracy'])
-    # model.fit()
+    model.train_on_batch() # tutorial trains on 100 game mini-batch
     model.save('models/0')
 

@@ -28,10 +28,10 @@ def pong_ai(paddle_frect, other_paddle_frect, ball_frect, table_size):
  y   v
     '''          
 
-    print(f"Paddle coordinates: {paddle_frect.pos[0]}, {paddle_frect.pos[1]}")
-    print(
-        f"Other paddle coords: {other_paddle_frect.pos[0]}, {other_paddle_frect.pos[1]}")
-    print(f"Ball coordinates: {ball_frect.pos[0]}, {ball_frect.pos[1]}")
+    # print(f"Paddle coordinates: {paddle_frect.pos[0]}, {paddle_frect.pos[1]}")
+    # print(
+    #     f"Other paddle coords: {other_paddle_frect.pos[0]}, {other_paddle_frect.pos[1]}")
+    # print(f"Ball coordinates: {ball_frect.pos[0]}, {ball_frect.pos[1]}")
     
     if paddle_frect.pos[1]+paddle_frect.size[1]/2 < ball_frect.pos[1]+ball_frect.size[1]/2:
         return "down"

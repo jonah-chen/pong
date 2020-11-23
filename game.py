@@ -1,15 +1,10 @@
 """PyGame Free Game."""
 import random
-import os
 import math
 
 from pygame import Rect
 
-
-white = [255, 255, 255]
-black = [0, 0, 0]
-
-def init_game():
+def init_game(score_to_win=1):
     table_size = (440, 280)
     paddle_size = (10, 70)
     ball_size = (15, 15)
@@ -26,17 +21,19 @@ def init_game():
                 wall_bounce, dust_error, init_speed_mag)
 
     import chaser_ai
-
+    from play import DataGen
+    from tensorflow.keras.models import load_model
+    model = load_model("kick_guerzhoys_ass.h5")
+    player1 = DataGen(model, 212.5/table_size[0], 132.5/table_size[1])
     paddles[0].move_getter = chaser_ai.pong_ai
-    paddles[1].move_getter = chaser_ai.pong_ai
-
-    print(game_loop(paddles, ball, table_size))
-    print("bruh")
+    paddles[1].move_getter = player1.player
+    
+    print(game_loop(paddles, ball, table_size, score_to_win=score_to_win))    
 
 
 def game_loop(paddles, ball, table_size, score_to_win=1):
     score = [0, 0]
-
+    
     while max(score) < score_to_win:
         old_score = score[:]
         ball, score = check_point(score, ball, table_size)
@@ -49,6 +46,7 @@ def game_loop(paddles, ball, table_size, score_to_win=1):
                 ball.move(paddles, table_size, 1./inv_move_factor)
         else:
             ball.move(paddles, table_size, 1)
+    print(score)
     # Plays one extra turn after the game ends for some reason.
     return score
 
@@ -263,4 +261,4 @@ class Ball:
         # print "position: ", self.frect.pos
 
 if __name__ == '__main__':
-    init_game()
+    init_game(10)
